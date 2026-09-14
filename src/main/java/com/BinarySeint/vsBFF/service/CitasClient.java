@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
-@FeignClient(name = "citas-client", url = "http://citas-svc:8080")
+@FeignClient(name = "citas-client", url = "http://appointments-svc:8080")
 public interface CitasClient {
     @PostMapping("/api/appointments")
     ResponseEntity<Object> createAppointment(@RequestBody Object atencion);
