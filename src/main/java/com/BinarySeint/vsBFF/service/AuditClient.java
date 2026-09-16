@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "audit-client", url = "http://audit-svc:8080")
+@FeignClient(name = "audit-client", url = "http://audit-svc:8080/api/audit")
 public interface AuditClient {
-    @GetMapping("/api/audit")
+    @GetMapping
     ResponseEntity<Object> getAllAudits();
 }

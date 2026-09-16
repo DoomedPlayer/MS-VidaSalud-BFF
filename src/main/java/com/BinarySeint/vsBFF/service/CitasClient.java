@@ -3,13 +3,20 @@ package com.BinarySeint.vsBFF.service;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
 
-@FeignClient(name = "citas-client", url = "http://appointments-svc:8080")
+@FeignClient(name = "appointments-svc", url = "http://appointments-svc:8080/api/appointments")
 public interface CitasClient {
-    @PostMapping("/api/appointments")
+    @PostMapping
     ResponseEntity<Object> createAppointment(@RequestBody Object atencion);
     
-    @PutMapping("/api/appointments/{id}/status")
-    ResponseEntity<Object> updateStatus(@PathVariable Long id, @RequestBody Map<String, String> statusMap);
+    @GetMapping("/{id}")
+    ResponseEntity<Object> getAppointment(@PathVariable("id") Long id);
+    
+    @PutMapping("/{id}/status")
+    ResponseEntity<Object> updateStatus(@PathVariable("id") Long id, @RequestBody Object body);
+    
+    @GetMapping
+    ResponseEntity<Object> getAppointments(@RequestParam(value = "status", required = false) String status,
+                                           @RequestParam(value = "from", required = false) String from,
+                                           @RequestParam(value = "to", required = false) String to);
 }
