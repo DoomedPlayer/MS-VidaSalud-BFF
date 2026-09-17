@@ -42,7 +42,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         
         // REEMPLAZA ESTA IP si tu EC2 del frontend cambia de dirección
-        config.setAllowedOrigins(Arrays.asList("https://98.80.13.95")); 
+        config.setAllowedOrigins(Arrays.asList("*")); 
         
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "x-requested-with", "Cache-Control"));
