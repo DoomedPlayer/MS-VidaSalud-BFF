@@ -1,12 +1,18 @@
 package com.BinarySeint.vsBFF.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -16,12 +22,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
+
                 .requestMatchers("/api/bff/appointments/**").hasAnyRole("Admin", "Recepcionista", "Paciente")
-
                 .requestMatchers("/api/bff/catalog/**").hasAnyRole("Admin", "Recepcionista")
- 
                 .requestMatchers("/api/bff/report/**").hasRole("Admin")
-
                 .requestMatchers("/api/bff/audit/**").hasAnyRole("Admin", "Auditor")
                 
                 .anyRequest().authenticated()
@@ -31,6 +36,20 @@ public class SecurityConfig {
             );
             
         return http.build();
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        
+        // REEMPLAZA ESTA IP si tu EC2 del frontend cambia de dirección
+        config.setAllowedOrigins(Arrays.asList("https://98.80.13.95")); 
+        
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "x-requested-with", "Cache-Control"));
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     @Bean
