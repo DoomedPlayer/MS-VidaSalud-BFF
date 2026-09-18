@@ -8,7 +8,6 @@ import com.BinarySeint.vsBFF.service.CatalogClient;
 import com.BinarySeint.vsBFF.service.CitasClient;
 import com.BinarySeint.vsBFF.service.ReportClient;
 
-
 @RestController
 @RequestMapping("/api/bff")
 public class BffController {
@@ -100,10 +99,8 @@ public class BffController {
     public ResponseEntity<Object> proxyGetAllAudits() {
         return auditClient.getAllAudits();
     }
-
-    @PostMapping("/audit/event")
-    public ResponseEntity<Object> proxyCreateEvent(@RequestBody Object event) {
-        return auditClient.createEvent(event);
+    @PostMapping("/audit")
+    public ResponseEntity<Object> proxyCreateAudit(@RequestBody Object evento) {
+        return auditClient.createAudit(evento);
     }
-    
 }
