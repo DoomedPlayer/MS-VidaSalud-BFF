@@ -99,7 +99,7 @@ public class BffController {
     public ResponseEntity<Object> proxyGetAllAudits() {
         return auditClient.getAllAudits();
     }
-    @PostMapping("/audit")
+    @PostMapping("/audit/event")
     public ResponseEntity<Object> proxyCreateAudit(@RequestBody Object evento) {
         return auditClient.createAudit(evento);
     }
