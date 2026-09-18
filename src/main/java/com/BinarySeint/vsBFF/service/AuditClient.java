@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.*;
 public interface AuditClient {
     @GetMapping
     ResponseEntity<Object> getAllAudits();
-    @PostMapping
+    @PostMapping("/event")
     ResponseEntity<Object> createAudit(@RequestBody Object evento);
 }
