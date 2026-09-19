@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/bff/catalog/**").hasAnyRole("Admin", "Recepcionista","Paciente")
                 .requestMatchers("/api/bff/report/**").hasRole("Admin")
                 .requestMatchers("/api/bff/audit/**").hasAnyRole("Admin", "Auditor")
+                .requestMatchers(HttpMethod.POST, "/api/bff/audit/**").hasAnyRole("Paciente")
                 
                 .anyRequest().authenticated()
             )
