@@ -29,9 +29,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/bff/appointments/**").hasAnyRole("Admin", "Recepcionista", "Paciente")
                 .requestMatchers("/api/bff/catalog/**").hasAnyRole("Admin", "Recepcionista","Paciente")
                 .requestMatchers("/api/bff/report/**").hasRole("Admin")
-                .requestMatchers("/api/bff/audit/**").hasAnyRole("Admin", "Auditor")
-                .requestMatchers(HttpMethod.POST, "/api/bff/audit/**").hasAnyRole("Paciente")
-                
+                .requestMatchers(HttpMethod.POST, "/api/bff/audit/event").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/bff/audit/**").hasAnyRole("Admin", "Auditor")
+                                
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
