@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
 
                 .requestMatchers("/api/bff/appointments/**").hasAnyRole("Admin", "Recepcionista", "Paciente")
-                .requestMatchers("/api/bff/catalog/**").hasAnyRole("Admin", "Recepcionista")
+                .requestMatchers("/api/bff/catalog/**").hasAnyRole("Admin", "Recepcionista","Paciente")
                 .requestMatchers("/api/bff/report/**").hasRole("Admin")
                 .requestMatchers("/api/bff/audit/**").hasAnyRole("Admin", "Auditor")
                 
